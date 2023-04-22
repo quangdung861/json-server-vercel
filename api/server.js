@@ -20,7 +20,7 @@ server.listen(3000, () => {
 module.exports = server
 
 
-const auth = require('json-server-auth');
+// const auth = require('json-server-auth');
 // const moment = require('moment');
 
 // server.use(jsonServer.bodyParser);
@@ -42,4 +42,4 @@ const auth = require('json-server-auth');
 //   next()
 // })
 
-server.use(auth);
+// server.use(auth);
