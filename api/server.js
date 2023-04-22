@@ -6,7 +6,6 @@ const middlewares = jsonServer.defaults()
 
 
 const auth = require('json-server-auth');
-const moment = require('moment');
 
 server.use(middlewares)
 // Add this before server.use(router)
