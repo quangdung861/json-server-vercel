@@ -15,8 +15,6 @@ var app = express();
 //     origin: "*",
 // }));
 
-app.use(express.bodyParser());
-
 // Add headers before the routes are defined
 app.use(function (req, res, next) {
 
