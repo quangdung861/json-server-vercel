@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Deploy JSON Server to Vercel",
   "main": "api/server.js",
-  "proxy": "http://localhost:3000",
   "scripts": {
     "start": "node api/server.js"
   },

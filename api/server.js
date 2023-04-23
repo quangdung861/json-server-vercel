@@ -12,18 +12,18 @@ var cors = require("cors");
 var app = express();
 
 app.use(cors({
-    origin: "http://127.0.0.1:3000",
+    origin: "http://localhost:3000",
 }));
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,PUT,PATCH,POST,DELETE");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+// app.use(function (req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Methods", "GET,PUT,PATCH,POST,DELETE");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
 
 // Add headers before the routes are defined
 
