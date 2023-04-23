@@ -1,46 +1,43 @@
+
 // See https://github.com/typicode/json-server#module
-import express from "express";
-const jsonServer = require("json-server");
-const server = jsonServer.create();
-const middlewares = jsonServer.defaults();
+const jsonServer = require('json-server')
+const server = jsonServer.create()
+const router = jsonServer.router('db.json')
+const middlewares = jsonServer.defaults() 
+const express = require("express")
+const app = express()
 
-const router = jsonServer.router("db.json");
-
-const auth = require("json-server-auth");
-const moment = require("moment");
-
-server.db = router.db;
-
-server.use(middlewares);
-server.use(jsonServer.bodyParser);
-
-const app = express();
+const auth = require('json-server-auth');
+const moment = require('moment');
 
 // Add headers before the routes are defined
-server.use(function (req, res, next) {
-  // Website you wish to allow to connect
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+app.use(function (req, res, next) {
 
-  // Request methods you wish to allow
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8888');
 
-  // Request headers you wish to allow
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type"
-  );
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
-  res.setHeader("Access-Control-Allow-Credentials", true);
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 
-  // Pass to next layer of middleware
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
 
-  next();
+    // Pass to next layer of middleware
+    next();
 });
+
+server.use(middlewares)
+server.use(jsonServer.bodyParser);
+// Add this before server.use(router)
+
+server.use(jsonServer.rewriter({
+    '/api/*': '/$1',
+    '/blog/:resource/:id/show': '/:resource/:id'
+}))
 
 server.use((req, res, next) => {
     if (req.method === 'POST') { 
@@ -59,17 +56,11 @@ server.use((req, res, next) => {
     next()
   })
 
-// Add this before server.use(router)
-server.use(
-  jsonServer.rewriter({
-    "/api/*": "/$1",
-    "/blog/:resource/:id/show": "/:resource/:id",
-  })
-);
-
+server.use(router)
 server.use(auth);
-server.use(router);
-server.listen(4000);
+server.listen(3000, () => {
+    console.log('JSON Server is running')
+})
 
 // Export the Server API
-module.exports = server;
+module.exports = server
