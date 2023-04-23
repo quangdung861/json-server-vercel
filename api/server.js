@@ -1,10 +1,3 @@
-// See https://github.com/typicode/json-server#module
-const jsonServer = require('json-server')
-const server = jsonServer.create()
-const middlewares = jsonServer.defaults()
-
-// server.use(middlewares)
-
 // Add headers before the routes are defined
 app.use(function (req, res, next) {
 
@@ -24,6 +17,15 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
+
+
+
+// See https://github.com/typicode/json-server#module
+const jsonServer = require('json-server')
+const server = jsonServer.create()
+const middlewares = jsonServer.defaults()
+
+server.use(middlewares)
 
 const router = jsonServer.router('db.json')
 
