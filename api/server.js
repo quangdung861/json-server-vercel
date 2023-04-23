@@ -12,7 +12,7 @@ var cors = require("cors");
 var app = express();
 
 app.use(cors({
-    origin: "http://localhost:3000/products",
+    origin: "http://localhost:3000",
 }));
 
 // app.use(function (req, res, next) {
