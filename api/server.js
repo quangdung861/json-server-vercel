@@ -3,11 +3,25 @@ const jsonServer = require("json-server");
 const server = jsonServer.create();
 const router = jsonServer.router("db.json");
 const middlewares = jsonServer.defaults();
-const express = require("express");
-const app = express();
 
 const auth = require("json-server-auth");
 const moment = require("moment");
+
+var express = require("express");
+var cors = require("cors");
+var app = express();
+
+app.use(cors());
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Methods", "GET,PUT,PATCH,POST,DELETE");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 // Add headers before the routes are defined
 
@@ -16,29 +30,10 @@ server.use(jsonServer.bodyParser);
 // Add this before server.use(router)
 
 server.use((req, res, next) => {
-   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-
-  // Request methods you wish to allow
-   res.header(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-
-  // Request headers you wish to allow
-   res.header(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With,content-type"
-  );
-
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
-   res.header("Access-Control-Allow-Credentials", true);
-
-
   jsonServer.rewriter({
     "/api/*": "/$1",
     "/blog/:resource/:id/show": "/:resource/:id",
-  })
+  });
 
   if (req.method === "POST") {
     req.body.createdAt = moment().valueOf();
