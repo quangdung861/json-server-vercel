@@ -11,9 +11,9 @@ var express = require("express");
 var cors = require("cors");
 var app = express();
 
-// app.use(cors({
-//     origin: "*",
-// }));
+app.use(cors({
+    origin: "*",
+}));
 
 // Add headers before the routes are defined
 app.use(function (req, res, next) {
