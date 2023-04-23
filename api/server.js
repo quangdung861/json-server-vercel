@@ -11,7 +11,9 @@ var express = require("express");
 var cors = require("cors");
 var app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: "http://127.0.0.1:3000",
+}));
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
