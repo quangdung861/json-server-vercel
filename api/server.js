@@ -15,13 +15,6 @@ server.use(middlewares);
 server.use(jsonServer.bodyParser);
 // Add this before server.use(router)
 
-server.use(
-  jsonServer.rewriter({
-    "/api/*": "/$1",
-    "/blog/:resource/:id/show": "/:resource/:id",
-  })
-);
-
 server.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
 
@@ -40,6 +33,12 @@ server.use((req, res, next) => {
   // Set to true if you need the website to include cookies in the requests sent
   // to the API (e.g. in case you use sessions)
   res.setHeader("Access-Control-Allow-Credentials", true);
+
+
+  jsonServer.rewriter({
+    "/api/*": "/$1",
+    "/blog/:resource/:id/show": "/:resource/:id",
+  })
 
   if (req.method === "POST") {
     req.body.createdAt = moment().valueOf();
