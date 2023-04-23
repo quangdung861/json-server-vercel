@@ -17,7 +17,7 @@ server.use(jsonServer.bodyParser);
 const app = express();
 
 // Add headers before the routes are defined
-server.use(function (req, res, next) {
+app.use(function (req, res, next) {
   // Website you wish to allow to connect
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
 
@@ -39,21 +39,25 @@ server.use(function (req, res, next) {
 
   // Pass to next layer of middleware
 
-  if (req.method === "POST") {
-    req.body.createdAt = moment().valueOf();
-    req.body.updatedAt = moment().valueOf();
-  }
-
-  if (req.method === "PUT") {
-    req.method = "PATCH";
-  }
-
-  if (req.method === "PATCH") {
-    req.body.updatedAt = moment().valueOf();
-  }
-
   next();
 });
+
+server.use((req, res, next) => {
+    if (req.method === 'POST') { 
+      req.body.createdAt = moment().valueOf();
+      req.body.updatedAt = moment().valueOf();
+    }
+  
+    if (req.method === 'PUT') {
+      req.method = 'PATCH';
+    }
+  
+    if (req.method === 'PATCH') {
+      req.body.updatedAt = moment().valueOf();
+    }
+  
+    next()
+  })
 
 // Add this before server.use(router)
 server.use(
