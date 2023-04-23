@@ -13,6 +13,7 @@ var app = express();
 
 app.use(cors({
     origin: "*",
+    methods: ["GET", "PUT", "PATCH", "DELETE"]
 }));
 
 // app.use(function (req, res, next) {
