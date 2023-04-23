@@ -30,10 +30,10 @@ server.use(jsonServer.bodyParser);
 // Add this before server.use(router)
 
 server.use((req, res, next) => {
-  jsonServer.rewriter({
-    "/api/*": "/$1",
-    "/blog/:resource/:id/show": "/:resource/:id",
-  });
+//   jsonServer.rewriter({
+//     "/api/*": "/$1",
+//     "/blog/:resource/:id/show": "/:resource/:id",
+//   });
 
   if (req.method === "POST") {
     req.body.createdAt = moment().valueOf();
