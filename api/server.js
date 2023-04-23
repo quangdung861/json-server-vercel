@@ -55,7 +55,7 @@ server.use((req, res, next) => {
 
 server.use(router);
 server.use(auth);
-server.listen(3000, () => {
+app.listen(3000, () => {
   console.log("JSON Server is running");
 });
 
