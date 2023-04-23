@@ -13,7 +13,6 @@ var app = express();
 
 app.use(cors({
     origin: "*",
-    methods: ["GET", "PUT", "PATCH", "DELETE"]
 }));
 
 // app.use(function (req, res, next) {
@@ -38,8 +37,13 @@ server.use((req, res, next) => {
 //     "/blog/:resource/:id/show": "/:resource/:id",
 //   });
 
-res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,PUT,PATCH,POST,DELETE");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
 
   if (req.method === "POST") {
     req.body.createdAt = moment().valueOf();
